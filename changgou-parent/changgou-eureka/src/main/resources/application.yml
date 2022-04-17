@@ -1,5 +1,6 @@
 server:
   port: 7001
+  enable-self-preservation: false
 eureka:
   instance:
     hostname: 127.0.0.1
