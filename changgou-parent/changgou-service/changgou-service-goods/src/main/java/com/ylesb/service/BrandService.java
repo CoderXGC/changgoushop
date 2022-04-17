@@ -8,6 +8,7 @@ package com.ylesb.service;
  * @date 2022/4/1716:20
  */
 
+import com.github.pagehelper.PageInfo;
 import com.ylesb.pojo.Brand;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public interface BrandService {
    void update(Brand brand);
    void delete(Integer id);
    List<Brand> findList(Brand brand);
+   PageInfo<Brand> findPage(Integer pageNum, Integer pageSize);
 
 }
 

@@ -8,6 +8,7 @@ package com.ylesb.controller;
  * @date 2022/4/1716:21
  */
 
+import com.github.pagehelper.PageInfo;
 import com.ylesb.pojo.Brand;
 import com.ylesb.service.BrandService;
 import entity.Result;
@@ -60,5 +61,14 @@ public class BrandController {
         brandService.delete(id);
         return new Result(true, StatusCode.OK, "删除成功");
     }
-
+    @PostMapping (value = "/search")
+    public Result<List<Brand>> findList(@RequestBody Brand brand){
+        List<Brand> brands = brandService.findList(brand);
+        return new Result<List<Brand>>(true, StatusCode.OK,"条件搜索查询成功",brands);
+    }
+    @GetMapping (value = "/search/{page}/{size}")
+    public Result<PageInfo<Brand>> findPage(@PathVariable(value = "page")Integer page,@PathVariable(value = "size")Integer size){
+       PageInfo<Brand> pageInfo = brandService.findPage(page,size);
+        return new Result<PageInfo<Brand>>(true, StatusCode.OK,"分页查询成功",pageInfo);
+    }
 }

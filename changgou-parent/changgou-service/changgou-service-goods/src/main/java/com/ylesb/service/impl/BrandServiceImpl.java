@@ -8,11 +8,16 @@ package com.ylesb.service.impl;
  * @date 2022/4/1716:20
  */
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ylesb.dao.BrandMapper;
 import com.ylesb.pojo.Brand;
 import com.ylesb.service.BrandService;
+import entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -59,6 +64,10 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public List<Brand> findList(Brand brand) {
+        Example example = createExample(brand);
+        return brandMapper.selectByExample(example);
+    }
+    public Example createExample(Brand brand){
         Example example = new Example(Brand.class);
         Example.Criteria criteria = example.createCriteria();
         if (brand != null) {
@@ -70,6 +79,13 @@ public class BrandServiceImpl implements BrandService {
             }
 
         }
-        return brandMapper.selectByExample(example);
+        return example;
+
+    }
+    @Override
+    public PageInfo<Brand> findPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Brand> brands=brandMapper.selectAll();
+        return new PageInfo<Brand>(brands);
     }
 }
