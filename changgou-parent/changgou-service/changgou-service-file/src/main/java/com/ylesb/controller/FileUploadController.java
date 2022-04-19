@@ -37,7 +37,9 @@ public class FileUploadController {
     @PostMapping
     public Result upload(@RequestParam("file")MultipartFile file) throws IOException, MyException {
         FastDFSFile fastDFSFile = new FastDFSFile(file.getOriginalFilename(), file.getBytes(), StringUtils.getFilenameExtension(file.getOriginalFilename()));
-        FastDFSUtil.fileUpload(fastDFSFile);
-        return new Result<>(true, StatusCode.OK,"上传成功",file.getOriginalFilename());
+        String[] uploads=FastDFSUtil.fileUpload(fastDFSFile);
+        String url = "http://192.168.137.176:8080/"+uploads[0]+"/"+uploads[1];
+
+        return new Result<>(true, StatusCode.OK,"上传成功",url);
     }
 }

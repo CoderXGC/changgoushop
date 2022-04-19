@@ -11,13 +11,13 @@ package com.ylesb.utils;
 import com.ylesb.file.FastDFSFile;
 import org.csource.common.MyException;
 import org.csource.common.NameValuePair;
-import org.csource.fastdfs.ClientGlobal;
-import org.csource.fastdfs.StorageClient;
-import org.csource.fastdfs.TrackerClient;
-import org.csource.fastdfs.TrackerServer;
+import org.csource.fastdfs.*;
 import org.springframework.core.io.ClassPathResource;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @className    : FastDFSUtil
@@ -36,7 +36,7 @@ public class FastDFSUtil {
 
         try {
             String filename= new ClassPathResource("fdfs_client.conf").getPath();
-           ClientGlobal.init("filename");
+           ClientGlobal.init(filename);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,12 +44,60 @@ public class FastDFSUtil {
             e.printStackTrace();
         }
     }
-    public static void fileUpload(FastDFSFile file) throws IOException, MyException {
+    public static String[] fileUpload(FastDFSFile file) throws IOException, MyException {
         NameValuePair[] meta_list = new NameValuePair[1];
         meta_list[0] = new NameValuePair("author", file.getAuthor());
         TrackerClient trackerClient = new TrackerClient();
         TrackerServer trackerServer = trackerClient.getConnection();
         StorageClient storageClient = new StorageClient(trackerServer,null);
-        storageClient.upload_file(file.getContent(),file.getExt(),meta_list);
+        String[] uploads=storageClient.upload_file(file.getContent(),file.getExt(),meta_list);
+
+        return uploads;
     }
+    public static FileInfo getFile(String groupName,String remoteFileName) throws IOException, MyException {
+        TrackerClient trackerClient = new TrackerClient();
+        TrackerServer trackerServer = trackerClient.getConnection();
+        StorageClient storageClient = new StorageClient(trackerServer,null);
+        return  storageClient.get_file_info(groupName,remoteFileName);
+    }
+    public static InputStream downloadFile(String groupName, String remoteFileName) throws IOException, MyException {
+        TrackerClient trackerClient = new TrackerClient();
+        TrackerServer trackerServer = trackerClient.getConnection();
+        StorageClient storageClient = new StorageClient(trackerServer,null);
+        byte[] bytes = storageClient.download_file(groupName, remoteFileName);
+        return new ByteArrayInputStream(bytes);
+
+    }
+    public static void deleteFile(String groupName, String remoteFileName) throws IOException, MyException {
+        TrackerClient trackerClient = new TrackerClient();
+        TrackerServer trackerServer = trackerClient.getConnection();
+        StorageClient storageClient = new StorageClient(trackerServer,null);
+        storageClient.delete_file(groupName, remoteFileName);
+
+    }
+    public static StorageServer getStorage() throws IOException, MyException {
+        TrackerClient trackerClient = new TrackerClient();
+        TrackerServer trackerServer = trackerClient.getConnection();
+        return trackerClient.getStoreStorage(trackerServer);
+
+    }
+    public static void main(String[] args) throws IOException, MyException {
+        FileInfo fileInfo=getFile("group1","M00/00/00/wKiJsGJeRauABOtBAAM8owwHOLU023.png");
+       System.out.println(fileInfo.getSourceIpAddr()); //获取文件的存储服务器IP地址
+        System.out.println(fileInfo.getFileSize()); //获取文件的大小
+        InputStream is=downloadFile("group1","M00/00/00/wKiJsGJeRauABOtBAAM8owwHOLU023.png");
+        FileOutputStream fos=new FileOutputStream("D:\\test.png");
+        byte[] bytes=new byte[1024];
+        while (is.read(bytes)!=-1){
+            fos.write(bytes);
+        }
+        fos.flush();
+        fos.close();
+        is.close();
+
+
+
+    }
+
+
 }
