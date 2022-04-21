@@ -3,11 +3,17 @@ import entity.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/****
- * @Author:shenkunlin
- * @Description:
- * @Date 2019/6/18 13:58
- *****/
+/**
+ * @className    : ${Table}Feign
+ * @description  : [描述说明该类的功能]
+ * @author       : [XuGuangchao]
+ * @site         : [www.ylesb.com]
+ * @version      : [v1.0]
+ * @createTime   : [2022/4/17 20:29]
+ * @updateUser   : [XuGuangchao]
+ * @updateTime   : [2022/4/17 20:29]
+ * @updateRemark : [描述说明本次修改内容]
+ */
 @FeignClient(name="${serviceName}")
 @RequestMapping("/${table}")
 public interface ${Table}Feign {

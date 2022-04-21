@@ -9,11 +9,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 import java.util.List;
-/****
- * @Author:shenkunlin
- * @Description:${Table}业务层接口实现类
- * @Date 2019/6/14 0:16
- *****/
+/**
+ * @className    : ${Table}ServiceImpl
+ * @description  : [${Table}业务层接口实现类]
+ * @author       : [XuGuangchao]
+ * @site         : [www.ylesb.com]
+ * @version      : [v1.0]
+ * @createTime   : [2022/4/17 20:29]
+ * @updateUser   : [XuGuangchao]
+ * @updateTime   : [2022/4/17 20:29]
+ * @updateRemark : [描述说明本次修改内容]
+ */
 @Service
 public class ${Table}ServiceImpl implements ${Table}Service {
 

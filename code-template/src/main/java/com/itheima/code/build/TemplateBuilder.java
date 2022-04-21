@@ -120,7 +120,6 @@ public class TemplateBuilder {
                     ResultSet keySet = metaData.getPrimaryKeys(database, UNAME, tableName);
                     String key ="",keyType="";
                     while (keySet.next()){
-                        System.out.println("key1"+key);
                         key=keySet.getString(4);
                     }
 
@@ -146,7 +145,6 @@ public class TemplateBuilder {
                        //需要导包的类型
                         typeSet.add(javaType);
                         //主键类型
-                        System.out.println("key3"+key);
                         if(columnName.equals(key)){
                             keyType=JavaTypes.simpleName(javaType);
                         }

@@ -9,11 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-/****
- * @Author:shenkunlin
- * @Description:
- * @Date 2019/6/14 0:18
- *****/
+/**
+ * @className    : ${Table}Controller
+ * @description  : [描述说明该类的功能]
+ * @author       : [XuGuangchao]
+ * @site         : [www.ylesb.com]
+ * @version      : [v1.0]
+ * @createTime   : [2022/4/17 20:29]
+ * @updateUser   : [XuGuangchao]
+ * @updateTime   : [2022/4/17 20:29]
+ * @updateRemark : [描述说明本次修改内容]
+ */
 <#if swagger==true>@Api(value = "${Table}Controller")</#if>
 @RestController
 @RequestMapping("/${table}")
