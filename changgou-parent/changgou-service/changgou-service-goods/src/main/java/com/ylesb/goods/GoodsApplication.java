@@ -1,4 +1,4 @@
-package com.ylesb;
+package com.ylesb.goods;
 /**
  * @title: GoodsApplication
  * @projectName changgou
@@ -8,7 +8,6 @@ package com.ylesb;
  * @date 2022/4/1716:04
  */
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
